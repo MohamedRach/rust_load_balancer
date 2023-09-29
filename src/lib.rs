@@ -2,6 +2,7 @@ use polling::{Events, Poller, Event};
 use std::{
     io::{prelude::*, BufReader},
     net::{TcpListener, TcpStream}, fs,
+    thread
 };
 
 
@@ -23,10 +24,15 @@ impl EventLoop {
                     // Perform a non-blocking accept operation.
                     for stream in socket.incoming() { // the incoming method gives us sequence of streams
                         let stream = stream.unwrap();
-                        Self::handle_connection(stream);
+                        thread::spawn(|| {
+                            Self::handle_connection(stream);
+                            println!("new thread initiated"); 
+                    });
                     }  
                     // Set interest in the next readability event.
                     let _modify = poller.modify(&socket, Event::readable(key)).unwrap();
+                } else {
+                    println!("not valid key")
                 }
             }
         }
