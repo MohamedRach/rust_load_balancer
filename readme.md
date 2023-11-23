@@ -8,9 +8,10 @@ This project is a load balancer built from scratch.
 
 ### How to use It
 
+#### You should have rust installed
 ```console
-$ git clone https://github.com/rust-lang-nursery/rand.git
-$ cd rand
+$ git clone https://github.com/MohamedRach/rust_load_balancer
+$ cd rust_load_balancer
 $ cargo build
 ```
 
